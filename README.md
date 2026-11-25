@@ -1,21 +1,27 @@
-# Nica TFA7
+Console Component
+=================
 
-Laravel TFA7 account management project styled like the Divino Ace project.
+The Console component eases the creation of beautiful and testable command line
+interfaces.
 
-## Features
+Sponsor
+-------
 
-- Create and edit customer records
-- Create and edit user records
-- Required-field, email, and unique-value validation
-- Public avatar uploads limited to 2 MB
-- Monochrome layout with floating navigation
+Help Symfony by [sponsoring][1] its development!
 
-## Run
+Resources
+---------
 
-```text
-php artisan migrate:fresh --seed
-php artisan storage:link
-php artisan serve --port=8008
-```
+ * [Documentation](https://symfony.com/doc/current/components/console.html)
+ * [Contributing](https://symfony.com/doc/current/contributing/index.html)
+ * [Report issues](https://github.com/symfony/symfony/issues) and
+   [send Pull Requests](https://github.com/symfony/symfony/pulls)
+   in the [main Symfony repository](https://github.com/symfony/symfony)
 
-Open `http://127.0.0.1:8008`.
+Credits
+-------
+
+`Resources/bin/hiddeninput.exe` is a third party binary provided within this
+component. Find sources and license at https://github.com/Seldaek/hidden-input.
+
+[1]: https://symfony.com/sponsor
