@@ -1,0 +1,9 @@
+
+<?php $__env->startSection('content'); ?>
+<div class="page-heading"><div class="eyebrow">User form</div><h1><?php echo e($mode==='edit'?'Edit User.':'Create User.'); ?></h1><p class="lead">Username and email uniqueness plus image uploads up to 2MB are validated.</p></div>
+<?php if($errors->any()): ?><div class="notice errors"><strong>Please correct the following:</strong><ul><?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><li><?php echo e($error); ?></li><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></ul></div><?php endif; ?>
+<form class="hero" method="POST" action="<?php echo e($mode==='edit'?route('users.update',$user):route('users.store')); ?>" enctype="multipart/form-data"><?php echo csrf_field(); ?> <?php if($mode==='edit'): ?> <?php echo method_field('PUT'); ?> <?php endif; ?>
+<p><label for="username">Username</label><input id="username" name="username" value="<?php echo e(old('username',$user->username)); ?>" required></p><p><label for="full_name">Full name</label><input id="full_name" name="full_name" value="<?php echo e(old('full_name',$user->full_name)); ?>" required></p><p><label for="email">Email</label><input id="email" type="email" name="email" value="<?php echo e(old('email',$user->email)); ?>" required></p><p><label for="avatar">Profile picture (image, max 2MB)</label><input id="avatar" type="file" name="avatar" accept="image/*"></p><button class="button" type="submit"><?php echo e($mode==='edit'?'Update User':'Save User'); ?></button></form>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app',['title'=>$mode==='edit'?'Edit User':'Create User'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\nica\resources\views\users\form.blade.php ENDPATH**/ ?>

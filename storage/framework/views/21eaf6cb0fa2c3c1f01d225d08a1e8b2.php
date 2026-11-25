@@ -1,0 +1,9 @@
+
+<?php $__env->startSection('content'); ?>
+<div class="page-heading"><div class="eyebrow">Customer form</div><h1><?php echo e($mode==='edit'?'Edit Customer.':'Create Customer.'); ?></h1><p class="lead">Laravel validation preserves old input and displays clear errors.</p></div>
+<?php if($errors->any()): ?><div class="notice errors"><strong>Please correct the following:</strong><ul><?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><li><?php echo e($error); ?></li><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?></ul></div><?php endif; ?>
+<form class="hero" method="POST" action="<?php echo e($mode==='edit'?route('customers.update',$customer):route('customers.store')); ?>"><?php echo csrf_field(); ?> <?php if($mode==='edit'): ?> <?php echo method_field('PUT'); ?> <?php endif; ?>
+<p><label for="full_name">Full name</label><input id="full_name" name="full_name" value="<?php echo e(old('full_name',$customer->full_name)); ?>" required></p><p><label for="email">Email</label><input id="email" type="email" name="email" value="<?php echo e(old('email',$customer->email)); ?>" required></p><p><label for="phone">Phone</label><input id="phone" name="phone" value="<?php echo e(old('phone',$customer->phone)); ?>"></p><button class="button" type="submit"><?php echo e($mode==='edit'?'Update Customer':'Save Customer'); ?></button></form>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app',['title'=>$mode==='edit'?'Edit Customer':'Create Customer'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\xampp\htdocs\nica\resources\views/customers/form.blade.php ENDPATH**/ ?>
