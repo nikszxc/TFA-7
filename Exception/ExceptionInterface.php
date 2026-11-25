@@ -9,12 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Console\Exception;
+namespace Symfony\Component\Translation\Exception;
 
 /**
- * ExceptionInterface.
+ * Exception interface for all exceptions thrown by the component.
  *
- * @author Jérôme Tamarelle <jerome@tamarelle.net>
+ * @author Fabien Potencier <fabien@symfony.com>
  */
 interface ExceptionInterface extends \Throwable
 {

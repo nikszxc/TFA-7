@@ -9,10 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Console\Exception;
+namespace Symfony\Component\Translation\Exception;
 
 /**
- * @author Jérôme Tamarelle <jerome@tamarelle.net>
+ * Base RuntimeException for the Translation component.
+ *
+ * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
 class RuntimeException extends \RuntimeException implements ExceptionInterface
 {

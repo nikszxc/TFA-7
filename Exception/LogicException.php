@@ -9,10 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Console\Exception;
+namespace Symfony\Component\Translation\Exception;
 
 /**
- * @author Jérôme Tamarelle <jerome@tamarelle.net>
+ * Base LogicException for Translation component.
+ *
+ * @author Abdellatif Ait boudad <a.aitboudad@gmail.com>
  */
 class LogicException extends \LogicException implements ExceptionInterface
 {
