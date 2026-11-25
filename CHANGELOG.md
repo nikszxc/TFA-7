@@ -4,311 +4,436 @@ CHANGELOG
 7.4
 ---
 
- * Add `Command::getCode()` to get the code set via `setCode()`
- * Allow setting aliases and the hidden flag via the command name passed to the constructor
- * Introduce `Symfony\Component\Console\Application::addCommand()` to simplify using invokable commands when the component is used standalone
- * Deprecate `Symfony\Component\Console\Application::add()` in favor of `Symfony\Component\Console\Application::addCommand()`
- * Add `BackedEnum` support with `#[Argument]` and `#[Option]` inputs in invokable commands
- * Allow Usages to be specified via `#[AsCommand]` attribute.
- * Allow passing invokable commands to `Symfony\Component\Console\Tester\CommandTester`
- * Add `#[MapInput]` attribute to support DTOs in commands
- * Add optional timeout for interaction in `QuestionHelper`
- * Add support for interactive invokable commands with `#[Interact]` and `#[Ask]` attributes
- * Add support for `Cursor` helper in invokable commands
+ * Add support for the `QUERY` HTTP method
+ * Deprecate implementing `__sleep/wakeup()` on kernels; use `__(un)serialize()` instead
+ * Deprecate implementing `__sleep/wakeup()` on data collectors; use `__(un)serialize()` instead
+ * Add `#[IsSignatureValid]` attribute to validate URI signatures
+ * Make `Profile` final and `Profiler::__sleep()` internal
+ * Collect the application runner class
+ * Allow configuring `DumpListener` to use a different dumper when CLI profiling is enabled
 
 7.3
 ---
 
- * Add `TreeHelper` and `TreeStyle` to display tree-like structures
- * Add `SymfonyStyle::createTree()`
- * Add support for invokable commands and add `#[Argument]` and `#[Option]` attributes to define input arguments and options
- * Deprecate not declaring the parameter type in callable commands defined through `setCode` method
- * Add support for help definition via `AsCommand` attribute
- * Deprecate methods `Command::getDefaultName()` and `Command::getDefaultDescription()` in favor of the `#[AsCommand]` attribute
- * Add support for Markdown format in `Table`
- * Add support for `LockableTrait` in invokable commands
- * Deprecate returning a non-integer value from a `\Closure` function set via `Command::setCode()`
- * Mark `#[AsCommand]` attribute as `@final`
- * Add support for `SignalableCommandInterface` with invokable commands
+ * Record a `waiting` trace in the `HttpCache` when the cache had to wait for another request to finish
+ * Add `$key` argument to `#[MapQueryString]` that allows using a specific key for argument resolving
+ * Support `Uid` in `#[MapQueryParameter]`
+ * Add `ServicesResetterInterface`, implemented by `ServicesResetter`
+ * Allow configuring the logging channel per type of exceptions in ErrorListener
 
 7.2
 ---
 
- * Add support for `FORCE_COLOR` environment variable
- * Add `verbosity` argument to `mustRun` process helper method
- * [BC BREAK] Add silent verbosity (`--silent`/`SHELL_VERBOSITY=-2`) to suppress all output, including errors
- * Add `OutputInterface::isSilent()`, `Output::isSilent()`, `OutputStyle::isSilent()` methods
- * Add a configurable finished indicator to the progress indicator to show that the progress is finished
- * Add ability to schedule alarm signals and a `ConsoleAlarmEvent`
+ * Remove `@internal` flag and add `@final` to `ServicesResetter`
+ * Add support for `SYMFONY_DISABLE_RESOURCE_TRACKING` env var
+ * Add support for configuring trusted proxies/headers/hosts via env vars
 
 7.1
 ---
 
- * Add `ArgvInput::getRawTokens()`
+ * Add method `isKernelTerminating()` to `ExceptionEvent` that allows to check if an exception was thrown while the kernel is being terminated
+ * Add `HttpException::fromStatusCode()`
+ * Add `$validationFailedStatusCode` argument to `#[MapQueryParameter]` that allows setting a custom HTTP status code when validation fails
+ * Add `NearMissValueResolverException` to let value resolvers report when an argument could be under their watch but failed to be resolved
+ * Add `$type` argument to `#[MapRequestPayload]` that allows mapping a list of items
+ * The `Extension` class is marked as internal, extend the `Extension` class from the DependencyInjection component instead
+ * Deprecate `Extension::addAnnotatedClassesToCompile()`
+ * Deprecate `AddAnnotatedClassesToCachePass`
+ * Deprecate the `setAnnotatedClassCache()` and `getAnnotatedClassesToCompile()` methods of the `Kernel` class
+ * Add `#[MapUploadedFile]` attribute to fetch, validate, and inject uploaded files into controller arguments
 
 7.0
 ---
 
- * Add method `__toString()` to `InputInterface`
- * Remove `Command::$defaultName` and `Command::$defaultDescription`, use the `AsCommand` attribute instead
- * Require explicit argument when calling `*Command::setApplication()`, `*FormatterStyle::setForeground/setBackground()`, `Helper::setHelpSet()`, `Input*::setDefault()` and `Question::setAutocompleterCallback/setValidator()`
- * Remove `StringInput::REGEX_STRING`
+ * Add argument `$reflector` to `ArgumentResolverInterface::getArguments()` and `ArgumentMetadataFactoryInterface::createArgumentMetadata()`
+ * Remove `ArgumentValueResolverInterface`, use `ValueResolverInterface` instead
+ * Remove `StreamedResponseListener`
+ * Remove `AbstractSurrogate::$phpEscapeMap`
+ * Remove `HttpKernelInterface::MASTER_REQUEST`
+ * Remove `terminate_on_cache_hit` option from `HttpCache`
+ * Require explicit argument when calling `ConfigDataCollector::setKernel()`, `RouterListener::setCurrentRequest()`
+ * Remove `Kernel::stripComments()`
+ * Remove `FileLinkFormatter`, use `FileLinkFormatter` from the ErrorHandler component instead
+ * Remove `UriSigner`, use `UriSigner` from the HttpFoundation component instead
+ * Add argument `$buildDir` to `WarmableInterface`
+ * Add argument `$filter` to `Profiler::find()` and `FileProfilerStorage::find()`
 
 6.4
 ---
 
- * Add `SignalMap` to map signal value to its name
- * Multi-line text in vertical tables is aligned properly
- * The application can also catch errors with `Application::setCatchErrors(true)`
- * Add `RunCommandMessage` and `RunCommandMessageHandler`
- * Dispatch `ConsoleTerminateEvent` after an exit on signal handling and add `ConsoleTerminateEvent::getInterruptingSignal()`
+ * Support backed enums in #[MapQueryParameter]
+ * `BundleInterface` no longer extends `ContainerAwareInterface`
+ * Add optional `$className` parameter to `ControllerEvent::getAttributes()`
+ * Add native return types to `TraceableEventDispatcher` and to `MergeExtensionConfigurationPass`
+ * Add argument `$validationFailedStatusCode` to `#[MapQueryString]` and `#[MapRequestPayload]`
+ * Add argument `$debug` to `Logger`
+ * Add class `DebugLoggerConfigurator`
+ * Add parameters `kernel.runtime_mode` and `kernel.runtime_mode.*`, all set from env var `APP_RUNTIME_MODE`
+ * Deprecate `Kernel::stripComments()`
+ * Support the `!` character at the beginning of a string as a negation operator in the url filter of the profiler
+ * Deprecate `UriSigner`, use `UriSigner` from the HttpFoundation component instead
+ * Deprecate `FileLinkFormatter`, use `FileLinkFormatter` from the ErrorHandler component instead
+ * Add argument `$buildDir` to `WarmableInterface`
+ * Add argument `$filter` to `Profiler::find()` and `FileProfilerStorage::find()`
+ * Add `ControllerResolver::allowControllers()` to define which callables are legit controllers when the `_check_controller_is_allowed` request attribute is set
 
 6.3
 ---
 
- * Add support for choosing exit code while handling signal, or to not exit at all
- * Add `ProgressBar::setPlaceholderFormatter` to set a placeholder attached to a instance, instead of being global.
- * Add `ReStructuredTextDescriptor`
+ * Deprecate parameters `container.dumper.inline_factories` and `container.dumper.inline_class_loader`, use `.container.dumper.inline_factories` and `.container.dumper.inline_class_loader` instead
+ * `FileProfilerStorage` removes profiles automatically after two days
+ * Add `#[WithHttpStatus]` for defining status codes for exceptions
+ * Use an instance of `Psr\Clock\ClockInterface` to generate the current date time in `DateTimeValueResolver`
+ * Add `#[WithLogLevel]` for defining log levels for exceptions
+ * Add `skip_response_headers` to the `HttpCache` options
+ * Introduce targeted value resolvers with `#[ValueResolver]` and `#[AsTargetedValueResolver]`
+ * Add `#[MapRequestPayload]` to map and validate request payload from `Request::getContent()` or `Request::$request->all()` to typed objects
+ * Add `#[MapQueryString]` to map and validate request query string from `Request::$query->all()` to typed objects
+ * Add `#[MapQueryParameter]` to map and validate individual query parameters to controller arguments
+ * Collect data from every event dispatcher
 
 6.2
 ---
 
- * Improve truecolor terminal detection in some cases
- * Add support for 256 color terminals (conversion from Ansi24 to Ansi8 if terminal is capable of it)
- * Deprecate calling `*Command::setApplication()`, `*FormatterStyle::setForeground/setBackground()`, `Helper::setHelpSet()`, `Input*::setDefault()`, `Question::setAutocompleterCallback/setValidator()`without any arguments
- * Change the signature of `OutputFormatterStyleInterface::setForeground/setBackground()` to `setForeground/setBackground(?string)`
- * Change the signature of `HelperInterface::setHelperSet()` to `setHelperSet(?HelperSet)`
+ * Add constructor argument `bool $handleAllThrowable` to `HttpKernel`
+ * Add `ControllerEvent::getAttributes()` to handle attributes on controllers
+ * Add `#[Cache]` to describe the default HTTP cache headers on controllers
+ * Add `absolute_uri` option to surrogate fragment renderers
+ * Add `ValueResolverInterface` and deprecate `ArgumentValueResolverInterface`
+ * Add argument `$reflector` to `ArgumentResolverInterface` and `ArgumentMetadataFactoryInterface`
+ * Deprecate calling `ConfigDataCollector::setKernel()`, `RouterListener::setCurrentRequest()` without arguments
 
 6.1
 ---
 
- * Add support to display table vertically when calling setVertical()
- * Add method `__toString()` to `InputInterface`
- * Added `OutputWrapper` to prevent truncated URL in `SymfonyStyle::createBlock`.
- * Deprecate `Command::$defaultName` and `Command::$defaultDescription`, use the `AsCommand` attribute instead
- * Add suggested values for arguments and options in input definition, for input completion
- * Add `$resumeAt` parameter to `ProgressBar#start()`, so that one can easily 'resume' progress on longer tasks, and still get accurate `getEstimate()` and `getRemaining()` results.
+ * Add `BackedEnumValueResolver` to resolve backed enum cases from request attributes in controller arguments
+ * Add `DateTimeValueResolver` to resolve request attributes into DateTime objects in controller arguments
+ * Deprecate StreamedResponseListener, it's not needed anymore
+ * Add `Profiler::isEnabled()` so collaborating collector services may elect to omit themselves
+ * Add the `UidValueResolver` argument value resolver
+ * Add `AbstractBundle` class for DI configuration/definition on a single file
+ * Update the path of a bundle placed in the `src/` directory to the parent directory when `AbstractBundle` is used
 
 6.0
 ---
 
- * `Command::setHidden()` has a default value (`true`) for `$hidden` parameter and is final
- * Remove `Helper::strlen()`, use `Helper::width()` instead
- * Remove `Helper::strlenWithoutDecoration()`, use `Helper::removeDecoration()` instead
- * `AddConsoleCommandPass` can not be configured anymore
- * Remove `HelperSet::setCommand()` and `getCommand()` without replacement
+ * Remove `ArgumentInterface`
+ * Remove `ArgumentMetadata::getAttribute()`, use `getAttributes()` instead
+ * Remove support for returning a `ContainerBuilder` from `KernelInterface::registerContainerConfiguration()`
+ * Remove `KernelEvent::isMasterRequest()`, use `isMainRequest()` instead
+ * Remove support for `service:action` syntax to reference controllers, use `serviceOrFqcn::method` instead
 
 5.4
 ---
 
- * Add `TesterTrait::assertCommandIsSuccessful()` to test command
- * Deprecate `HelperSet::setCommand()` and `getCommand()` without replacement
+ * Add the ability to enable the profiler using a request query parameter, body parameter or attribute
+ * Deprecate `AbstractTestSessionListener` and `TestSessionListener`, use `AbstractSessionListener` and `SessionListener` instead
+ * Deprecate the `fileLinkFormat` parameter of `DebugHandlersListener`
+ * Add support for configuring log level, and status code by exception class
+ * Allow ignoring "kernel.reset" methods that don't exist with "on_invalid" attribute
 
 5.3
 ---
 
- * Add `GithubActionReporter` to render annotations in a Github Action
- * Add `InputOption::VALUE_NEGATABLE` flag to handle `--foo`/`--no-foo` options
- * Add the `Command::$defaultDescription` static property and the `description` attribute
-   on the `console.command` tag to allow the `list` command to instantiate commands lazily
- * Add option `--short` to the `list` command
- * Add support for bright colors
- * Add `#[AsCommand]` attribute for declaring commands on PHP 8
- * Add `Helper::width()` and `Helper::length()`
- * The `--ansi` and `--no-ansi` options now default to `null`.
+ * Deprecate `ArgumentInterface`
+ * Add `ArgumentMetadata::getAttributes()`
+ * Deprecate `ArgumentMetadata::getAttribute()`, use `getAttributes()` instead
+ * Mark the class `Symfony\Component\HttpKernel\EventListener\DebugHandlersListener` as internal
+ * Deprecate returning a `ContainerBuilder` from `KernelInterface::registerContainerConfiguration()`
+ * Deprecate `HttpKernelInterface::MASTER_REQUEST` and add `HttpKernelInterface::MAIN_REQUEST` as replacement
+ * Deprecate `KernelEvent::isMasterRequest()` and add `isMainRequest()` as replacement
+ * Add `#[AsController]` attribute for declaring standalone controllers on PHP 8
+ * Add `FragmentUriGeneratorInterface` and `FragmentUriGenerator` to generate the URI of a fragment
 
 5.2.0
 -----
 
- * Added `SingleCommandApplication::setAutoExit()` to allow testing via `CommandTester`
- * added support for multiline responses to questions through `Question::setMultiline()`
-   and `Question::isMultiline()`
- * Added `SignalRegistry` class to stack signals handlers
- * Added support for signals:
-    * Added `Application::getSignalRegistry()` and `Application::setSignalsToDispatchEvent()` methods
-    * Added `SignalableCommandInterface` interface
- * Added `TableCellStyle` class to customize table cell
- * Removed `php ` prefix invocation from help messages.
+ * added session usage
+ * made the public `http_cache` service handle requests when available
+ * allowed enabling trusted hosts and proxies using new `kernel.trusted_hosts`,
+   `kernel.trusted_proxies` and `kernel.trusted_headers` parameters
+ * content of request parameter `_password` is now also hidden
+   in the request profiler raw content section
+ * Allowed adding attributes on controller arguments that will be passed to argument resolvers.
+ * kernels implementing the `ExtensionInterface` will now be auto-registered to the container
+ * added parameter `kernel.runtime_environment`, defined as `%env(default:kernel.environment:APP_RUNTIME_ENV)%`
+ * do not set a default `Accept` HTTP header when using `HttpKernelBrowser`
 
 5.1.0
 -----
 
- * `Command::setHidden()` is final since Symfony 5.1
- * Add `SingleCommandApplication`
- * Add `Cursor` class
+ * allowed to use a specific logger channel for deprecations
+ * made `WarmableInterface::warmUp()` return a list of classes or files to preload on PHP 7.4+;
+   not returning an array is deprecated
+ * made kernels implementing `WarmableInterface` be part of the cache warmup stage
+ * deprecated support for `service:action` syntax to reference controllers, use `serviceOrFqcn::method` instead
+ * allowed using public aliases to reference controllers
+ * added session usage reporting when the `_stateless` attribute of the request is set to `true`
+ * added `AbstractSessionListener::onSessionUsage()` to report when the session is used while a request is stateless
 
 5.0.0
 -----
 
- * removed support for finding hidden commands using an abbreviation, use the full name instead
- * removed `TableStyle::setCrossingChar()` method in favor of `TableStyle::setDefaultCrossingChar()`
- * removed `TableStyle::setHorizontalBorderChar()` method in favor of `TableStyle::setDefaultCrossingChars()`
- * removed `TableStyle::getHorizontalBorderChar()` method in favor of `TableStyle::getBorderChars()`
- * removed `TableStyle::setVerticalBorderChar()` method in favor of `TableStyle::setVerticalBorderChars()`
- * removed `TableStyle::getVerticalBorderChar()` method in favor of `TableStyle::getBorderChars()`
- * removed support for returning `null` from `Command::execute()`, return `0` instead
- * `ProcessHelper::run()` accepts only `array|Symfony\Component\Process\Process` for its `command` argument
- * `Application::setDispatcher` accepts only `Symfony\Contracts\EventDispatcher\EventDispatcherInterface`
-   for its `dispatcher` argument
- * renamed `Application::renderException()` and `Application::doRenderException()`
-   to `renderThrowable()` and `doRenderThrowable()` respectively.
+ * removed support for getting the container from a non-booted kernel
+ * removed the first and second constructor argument of `ConfigDataCollector`
+ * removed `ConfigDataCollector::getApplicationName()`
+ * removed `ConfigDataCollector::getApplicationVersion()`
+ * removed support for `Symfony\Component\Templating\EngineInterface` in `HIncludeFragmentRenderer`, use a `Twig\Environment` only
+ * removed `TranslatorListener` in favor of `LocaleAwareListener`
+ * removed `getRootDir()` and `getName()` from `Kernel` and `KernelInterface`
+ * removed `FilterControllerArgumentsEvent`, use `ControllerArgumentsEvent` instead
+ * removed `FilterControllerEvent`, use `ControllerEvent` instead
+ * removed `FilterResponseEvent`, use `ResponseEvent` instead
+ * removed `GetResponseEvent`, use `RequestEvent` instead
+ * removed `GetResponseForControllerResultEvent`, use `ViewEvent` instead
+ * removed `GetResponseForExceptionEvent`, use `ExceptionEvent` instead
+ * removed `PostResponseEvent`, use `TerminateEvent` instead
+ * removed `SaveSessionListener` in favor of `AbstractSessionListener`
+ * removed `Client`, use `HttpKernelBrowser` instead
+ * added method `getProjectDir()` to `KernelInterface`
+ * removed methods `serialize` and `unserialize` from `DataCollector`, store the serialized state in the data property instead
+ * made `ProfilerStorageInterface` internal
+ * removed the second and third argument of `KernelInterface::locateResource`
+ * removed the second and third argument of `FileLocator::__construct`
+ * removed loading resources from `%kernel.root_dir%/Resources` and `%kernel.root_dir%` as
+   fallback directories.
+ * removed class `ExceptionListener`, use `ErrorListener` instead
 
 4.4.0
 -----
 
- * deprecated finding hidden commands using an abbreviation, use the full name instead
- * added `Question::setTrimmable` default to true to allow the answer to be trimmed
- * added method `minSecondsBetweenRedraws()` and `maxSecondsBetweenRedraws()` on `ProgressBar`
- * `Application` implements `ResetInterface`
- * marked all dispatched event classes as `@final`
- * added support for displaying table horizontally
- * deprecated returning `null` from `Command::execute()`, return `0` instead
- * Deprecated the `Application::renderException()` and `Application::doRenderException()` methods,
-   use `renderThrowable()` and `doRenderThrowable()` instead.
- * added support for the `NO_COLOR` env var (https://no-color.org/)
+ * The `DebugHandlersListener` class has been marked as `final`
+ * Added new Bundle directory convention consistent with standard skeletons
+ * Deprecated the second and third argument of `KernelInterface::locateResource`
+ * Deprecated the second and third argument of `FileLocator::__construct`
+ * Deprecated loading resources from `%kernel.root_dir%/Resources` and `%kernel.root_dir%` as
+   fallback directories. Resources like service definitions are usually loaded relative to the
+   current directory or with a glob pattern. The fallback directories have never been advocated
+   so you likely do not use those in any app based on the SF Standard or Flex edition.
+ * Marked all dispatched event classes as `@final`
+ * Added `ErrorController` to enable the preview and error rendering mechanism
+ * Getting the container from a non-booted kernel is deprecated.
+ * Marked the `AjaxDataCollector`, `ConfigDataCollector`, `EventDataCollector`,
+   `ExceptionDataCollector`, `LoggerDataCollector`, `MemoryDataCollector`,
+   `RequestDataCollector` and `TimeDataCollector` classes as `@final`.
+ * Marked the `RouterDataCollector::collect()` method as `@final`.
+ * The `DataCollectorInterface::collect()` and `Profiler::collect()` methods third parameter signature
+   will be `\Throwable $exception = null` instead of `\Exception $exception = null` in Symfony 5.0.
+ * Deprecated methods `ExceptionEvent::get/setException()`, use `get/setThrowable()` instead
+ * Deprecated class `ExceptionListener`, use `ErrorListener` instead
 
 4.3.0
 -----
 
- * added support for hyperlinks
- * added `ProgressBar::iterate()` method that simplify updating the progress bar when iterating
- * added `Question::setAutocompleterCallback()` to provide a callback function
-   that dynamically generates suggestions as the user types
+ * renamed `Client` to `HttpKernelBrowser`
+ * `KernelInterface` doesn't extend `Serializable` anymore
+ * deprecated the `Kernel::serialize()` and `unserialize()` methods
+ * increased the priority of `Symfony\Component\HttpKernel\EventListener\AddRequestFormatsListener`
+ * made `Symfony\Component\HttpKernel\EventListener\LocaleListener` set the default locale early
+ * deprecated `TranslatorListener` in favor of `LocaleAwareListener`
+ * added the registration of all `LocaleAwareInterface` implementations into the `LocaleAwareListener`
+ * made `FileLinkFormatter` final and not implement `Serializable` anymore
+ * the base `DataCollector` doesn't implement `Serializable` anymore, you should
+   store all the serialized state in the data property instead
+ * `DumpDataCollector` has been marked as `final`
+ * added an event listener to prevent search engines from indexing applications in debug mode.
+ * renamed `FilterControllerArgumentsEvent` to `ControllerArgumentsEvent`
+ * renamed `FilterControllerEvent` to `ControllerEvent`
+ * renamed `FilterResponseEvent` to `ResponseEvent`
+ * renamed `GetResponseEvent` to `RequestEvent`
+ * renamed `GetResponseForControllerResultEvent` to `ViewEvent`
+ * renamed `GetResponseForExceptionEvent` to `ExceptionEvent`
+ * renamed `PostResponseEvent` to `TerminateEvent`
+ * added `HttpClientKernel` for handling requests with an `HttpClientInterface` instance
+ * added `trace_header` and `trace_level` configuration options to `HttpCache`
 
 4.2.0
 -----
 
- * allowed passing commands as `[$process, 'ENV_VAR' => 'value']` to
-   `ProcessHelper::run()` to pass environment variables
- * deprecated passing a command as a string to `ProcessHelper::run()`,
-   pass it the command as an array of its arguments instead
- * made the `ProcessHelper` class final
- * added `WrappableOutputFormatterInterface::formatAndWrap()` (implemented in `OutputFormatter`)
- * added `capture_stderr_separately` option to `CommandTester::execute()`
+ * deprecated `KernelInterface::getRootDir()` and the `kernel.root_dir` parameter
+ * deprecated `KernelInterface::getName()` and the `kernel.name` parameter
+ * deprecated the first and second constructor argument of `ConfigDataCollector`
+ * deprecated `ConfigDataCollector::getApplicationName()`
+ * deprecated `ConfigDataCollector::getApplicationVersion()`
 
 4.1.0
 -----
 
- * added option to run suggested command if command is not found and only 1 alternative is available
- * added option to modify console output and print multiple modifiable sections
- * added support for iterable messages in output `write` and `writeln` methods
+ * added orphaned events support to `EventDataCollector`
+ * `ExceptionListener` now logs exceptions at priority `0` (previously logged at `-128`)
+ * Added support for using `service::method` to reference controllers, making it consistent with other cases. It is recommended over the `service:action` syntax with a single colon, which will be deprecated in the future.
+ * Added the ability to profile individual argument value resolvers via the
+   `Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver`
 
 4.0.0
 -----
 
- * `OutputFormatter` throws an exception when unknown options are used
- * removed `QuestionHelper::setInputStream()/getInputStream()`
- * removed `Application::getTerminalWidth()/getTerminalHeight()` and
-   `Application::setTerminalDimensions()/getTerminalDimensions()`
- * removed `ConsoleExceptionEvent`
- * removed `ConsoleEvents::EXCEPTION`
+ * removed the `DataCollector::varToString()` method, use `DataCollector::cloneVar()`
+   instead
+ * using the `DataCollector::cloneVar()` method requires the VarDumper component
+ * removed the `ValueExporter` class
+ * removed `ControllerResolverInterface::getArguments()`
+ * removed `TraceableControllerResolver::getArguments()`
+ * removed `ControllerResolver::getArguments()` and the ability to resolve arguments
+ * removed the `argument_resolver` service dependency from the `debug.controller_resolver`
+ * removed `LazyLoadingFragmentHandler::addRendererService()`
+ * removed `Psr6CacheClearer::addPool()`
+ * removed `Extension::addClassesToCompile()` and `Extension::getClassesToCompile()`
+ * removed `Kernel::loadClassCache()`, `Kernel::doLoadClassCache()`, `Kernel::setClassCache()`,
+   and `Kernel::getEnvParameters()`
+ * support for the `X-Status-Code` when handling exceptions in the `HttpKernel`
+   has been dropped, use the `HttpKernel::allowCustomResponseCode()` method
+   instead
+ * removed convention-based commands registration
+ * removed the `ChainCacheClearer::add()` method
+ * removed the `CacheaWarmerAggregate::add()` and `setWarmers()` methods
+ * made `CacheWarmerAggregate` and `ChainCacheClearer` classes final
 
 3.4.0
 -----
 
- * added `SHELL_VERBOSITY` env var to control verbosity
- * added `CommandLoaderInterface`, `FactoryCommandLoader` and PSR-11
-   `ContainerCommandLoader` for commands lazy-loading
- * added a case-insensitive command name matching fallback
- * added static `Command::$defaultName/getDefaultName()`, allowing for
-   commands to be registered at compile time in the application command loader.
-   Setting the `$defaultName` property avoids the need for filling the `command`
-   attribute on the `console.command` tag when using `AddConsoleCommandPass`.
+ * added a minimalist PSR-3 `Logger` class that writes in `stderr`
+ * made kernels implementing `CompilerPassInterface` able to process the container
+ * deprecated bundle inheritance
+ * added `RebootableInterface` and implemented it in `Kernel`
+ * deprecated commands auto registration
+ * deprecated `EnvParametersResource`
+ * added `Symfony\Component\HttpKernel\Client::catchExceptions()`
+ * deprecated the `ChainCacheClearer::add()` method
+ * deprecated the `CacheaWarmerAggregate::add()` and `setWarmers()` methods
+ * made `CacheWarmerAggregate` and `ChainCacheClearer` classes final
+ * added the possibility to reset the profiler to its initial state
+ * deprecated data collectors without a `reset()` method
+ * deprecated implementing `DebugLoggerInterface` without a `clear()` method
 
 3.3.0
 -----
 
- * added `ExceptionListener`
- * added `AddConsoleCommandPass` (originally in FrameworkBundle)
- * [BC BREAK] `Input::getOption()` no longer returns the default value for options
-   with value optional explicitly passed empty
- * added console.error event to catch exceptions thrown by other listeners
- * deprecated console.exception event in favor of console.error
- * added ability to handle `CommandNotFoundException` through the
-   `console.error` event
- * deprecated default validation in `SymfonyQuestionHelper::ask`
+ * added `kernel.project_dir` and `Kernel::getProjectDir()`
+ * deprecated `kernel.root_dir` and `Kernel::getRootDir()`
+ * deprecated `Kernel::getEnvParameters()`
+ * deprecated the special `SYMFONY__` environment variables
+ * added the possibility to change the query string parameter used by `UriSigner`
+ * deprecated `LazyLoadingFragmentHandler::addRendererService()`
+ * deprecated `Extension::addClassesToCompile()` and `Extension::getClassesToCompile()`
+ * deprecated `Psr6CacheClearer::addPool()`
 
 3.2.0
-------
+-----
 
- * added `setInputs()` method to CommandTester for ease testing of commands expecting inputs
- * added `setStream()` and `getStream()` methods to Input (implement StreamableInputInterface)
- * added StreamableInputInterface
- * added LockableTrait
+ * deprecated `DataCollector::varToString()`, use `cloneVar()` instead
+ * changed surrogate capability name in `AbstractSurrogate::addSurrogateCapability` to 'symfony'
+ * Added `ControllerArgumentValueResolverPass`
 
 3.1.0
 -----
+ * deprecated passing objects as URI attributes to the ESI and SSI renderers
+ * deprecated `ControllerResolver::getArguments()`
+ * added `Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface`
+ * added `Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface` as argument to `HttpKernel`
+ * added `Symfony\Component\HttpKernel\Controller\ArgumentResolver`
+ * added `Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::getMethod()`
+ * added `Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::getRedirect()`
+ * added the `kernel.controller_arguments` event, triggered after controller arguments have been resolved
 
- * added truncate method to FormatterHelper
- * added setColumnWidth(s) method to Table
-
-2.8.3
+3.0.0
 -----
 
- * remove readline support from the question helper as it caused issues
+ * removed `Symfony\Component\HttpKernel\Kernel::init()`
+ * removed `Symfony\Component\HttpKernel\Kernel::isClassInActiveBundle()` and `Symfony\Component\HttpKernel\KernelInterface::isClassInActiveBundle()`
+ * removed `Symfony\Component\HttpKernel\Debug\TraceableEventDispatcher::setProfiler()`
+ * removed `Symfony\Component\HttpKernel\EventListener\FragmentListener::getLocalIpAddresses()`
+ * removed `Symfony\Component\HttpKernel\EventListener\LocaleListener::setRequest()`
+ * removed `Symfony\Component\HttpKernel\EventListener\RouterListener::setRequest()`
+ * removed `Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest()`
+ * removed `Symfony\Component\HttpKernel\Fragment\FragmentHandler::setRequest()`
+ * removed `Symfony\Component\HttpKernel\HttpCache\Esi::hasSurrogateEsiCapability()`
+ * removed `Symfony\Component\HttpKernel\HttpCache\Esi::addSurrogateEsiCapability()`
+ * removed `Symfony\Component\HttpKernel\HttpCache\Esi::needsEsiParsing()`
+ * removed `Symfony\Component\HttpKernel\HttpCache\HttpCache::getEsi()`
+ * removed `Symfony\Component\HttpKernel\DependencyInjection\ContainerAwareHttpKernel`
+ * removed `Symfony\Component\HttpKernel\DependencyInjection\RegisterListenersPass`
+ * removed `Symfony\Component\HttpKernel\EventListener\ErrorsLoggerListener`
+ * removed `Symfony\Component\HttpKernel\EventListener\EsiListener`
+ * removed `Symfony\Component\HttpKernel\HttpCache\EsiResponseCacheStrategy`
+ * removed `Symfony\Component\HttpKernel\HttpCache\EsiResponseCacheStrategyInterface`
+ * removed `Symfony\Component\HttpKernel\Log\LoggerInterface`
+ * removed `Symfony\Component\HttpKernel\Log\NullLogger`
+ * removed `Symfony\Component\HttpKernel\Profiler::import()`
+ * removed `Symfony\Component\HttpKernel\Profiler::export()`
 
 2.8.0
 -----
 
- * use readline for user input in the question helper when available to allow
-   the use of arrow keys
+ * deprecated `Profiler::import` and `Profiler::export`
+
+2.7.0
+-----
+
+ * added the HTTP status code to profiles
 
 2.6.0
 -----
 
- * added a Process helper
- * added a DebugFormatter helper
+ * deprecated `Symfony\Component\HttpKernel\EventListener\ErrorsLoggerListener`, use `Symfony\Component\HttpKernel\EventListener\DebugHandlersListener` instead
+ * deprecated unused method `Symfony\Component\HttpKernel\Kernel::isClassInActiveBundle` and `Symfony\Component\HttpKernel\KernelInterface::isClassInActiveBundle`
 
 2.5.0
 -----
 
- * deprecated the dialog helper (use the question helper instead)
- * deprecated TableHelper in favor of Table
- * deprecated ProgressHelper in favor of ProgressBar
- * added ConsoleLogger
- * added a question helper
- * added a way to set the process name of a command
- * added a way to set a default command instead of `ListCommand`
+ * deprecated `Symfony\Component\HttpKernel\DependencyInjection\RegisterListenersPass`, use `Symfony\Component\EventDispatcher\DependencyInjection\RegisterListenersPass` instead
 
 2.4.0
 -----
 
- * added a way to force terminal dimensions
- * added a convenient method to detect verbosity level
- * [BC BREAK] made descriptors use output instead of returning a string
+ * added event listeners for the session
+ * added the KernelEvents::FINISH_REQUEST event
 
 2.3.0
 -----
 
- * added multiselect support to the select dialog helper
- * added Table Helper for tabular data rendering
- * added support for events in `Application`
- * added a way to normalize EOLs in `ApplicationTester::getDisplay()` and `CommandTester::getDisplay()`
- * added a way to set the progress bar progress via the `setCurrent` method
- * added support for multiple InputOption shortcuts, written as `'-a|-b|-c'`
- * added two additional verbosity levels, VERBOSITY_VERY_VERBOSE and VERBOSITY_DEBUG
+ * [BC BREAK] renamed `Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener` to `Symfony\Component\HttpKernel\EventListener\ErrorsLoggerListener` and changed its constructor
+ * deprecated `Symfony\Component\HttpKernel\Debug\ErrorHandler`, `Symfony\Component\HttpKernel\Debug\ExceptionHandler`,
+   `Symfony\Component\HttpKernel\Exception\FatalErrorException` and `Symfony\Component\HttpKernel\Exception\FlattenException`
+ * deprecated `Symfony\Component\HttpKernel\Kernel::init()`
+ * added the possibility to specify an id an extra attributes to hinclude tags
+ * added the collect of data if a controller is a Closure in the Request collector
+ * pass exceptions from the ExceptionListener to the logger using the logging context to allow for more
+   detailed messages
 
 2.2.0
 -----
 
- * added support for colorization on Windows via ConEmu
- * add a method to Dialog Helper to ask for a question and hide the response
- * added support for interactive selections in console (DialogHelper::select())
- * added support for autocompletion as you type in Dialog Helper
+ * [BC BREAK] the path info for sub-request is now always _fragment (or whatever you configured instead of the default)
+ * added Symfony\Component\HttpKernel\EventListener\FragmentListener
+ * added Symfony\Component\HttpKernel\UriSigner
+ * added Symfony\Component\HttpKernel\FragmentRenderer and rendering strategies (in Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface)
+ * added Symfony\Component\HttpKernel\DependencyInjection\ContainerAwareHttpKernel
+ * added ControllerReference to create reference of Controllers (used in the FragmentRenderer class)
+ * [BC BREAK] renamed TimeDataCollector::getTotalTime() to
+   TimeDataCollector::getDuration()
+ * updated the MemoryDataCollector to include the memory used in the
+   kernel.terminate event listeners
+ * moved the Stopwatch classes to a new component
+ * added TraceableControllerResolver
+ * added TraceableEventDispatcher (removed ContainerAwareTraceableEventDispatcher)
+ * added support for WinCache opcode cache in ConfigDataCollector
 
 2.1.0
 -----
 
- * added ConsoleOutputInterface
- * added the possibility to disable a command (Command::isEnabled())
- * added suggestions when a command does not exist
- * added a --raw option to the list command
- * added support for STDERR in the console output class (errors are now sent
-   to STDERR)
- * made the defaults (helper set, commands, input definition) in Application
-   more easily customizable
- * added support for the shell even if readline is not available
- * added support for process isolation in Symfony shell via
-   `--process-isolation` switch
- * added support for `--`, which disables options parsing after that point
-   (tokens will be parsed as arguments)
+ * [BC BREAK] the charset is now configured via the Kernel::getCharset() method
+ * [BC BREAK] the current locale for the user is not stored anymore in the session
+ * added the HTTP method to the profiler storage
+ * updated all listeners to implement EventSubscriberInterface
+ * added TimeDataCollector
+ * added ContainerAwareTraceableEventDispatcher
+ * moved TraceableEventDispatcherInterface to the EventDispatcher component
+ * added RouterListener, LocaleListener, and StreamedResponseListener
+ * added CacheClearerInterface (and ChainCacheClearer)
+ * added a kernel.terminate event (via TerminableInterface and PostResponseEvent)
+ * added a Stopwatch class
+ * added WarmableInterface
+ * improved extensibility between bundles
+ * added profiler storages for Memcache(d), File-based, MongoDB, Redis
+ * moved Filesystem class to its own component
